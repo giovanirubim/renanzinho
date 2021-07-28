@@ -9,7 +9,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 let inputChannel;
-let outputChannel;
+let outpuUser;
 let targetMessage;
 const emojiMap = {};
 
@@ -27,7 +27,7 @@ async function getTargetMessage() {
 
 async function init() {
 	inputChannel = await client.channels.cache.get(INPUT);
-	outputChannel = await client.channels.cache.get(OUTPUT);
+	outpuUser = await client.users.cache.get(OUTPUT);
 	targetMessage = await getTargetMessage();
 	const topic = targetMessage.channel.topic;
 	const lines = topic.trim().split(/\s*\n\s*/);
@@ -38,7 +38,7 @@ async function init() {
 }
 
 async function log(message) {
-	await outputChannel.send(message);
+	await outpuUser.send(message);
 }
 
 client.on('message', async (message) => {
