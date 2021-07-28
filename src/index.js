@@ -42,7 +42,10 @@ async function log(message) {
 }
 
 client.on('message', async (message) => {
-	const { name } = message.channel;
+	const { id } = message.channel;
+	if (id != inputChannel.id) {
+		return;
+	}
 	const { author } = message;
 	if (author.bot) return;
 	await log(`O <@!${author.id}> mandou isso: \`${message.content}\``);
